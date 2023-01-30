@@ -99,20 +99,35 @@ $clientsM = $colyseumClientsM->fetchAll();
 
 <!-- -------------------EXERCICE 6--------------- -->
 <?php
-$colyseumShows = $dataBase->query('SELECT *, DATE_FORMAT(date,"%d/%m/%Y") AS niceDate, DATE_FORMAT(startTime, "%Hh%i") AS niceStartTime FROM shows');
+$colyseumShows = $dataBase->query('SELECT *, DATE_FORMAT(date,"%d/%m/%Y") AS niceDate, DATE_FORMAT(startTime, "%Hh%i") AS niceStartTime FROM shows JOIN showTypes WHERE shows.showTypesId = showTypes.Id' );
 
 $shows = $colyseumShows->fetchAll();
 
 ?>
 <hr>
 <h2>Spectacles</h2>
-<ul>
+<table border=1>
+    <tr bgcolor=grey>
+        <th>Nom du spectacle</th>
+        <th>Artiste</th>
+        <th>Type de spectacle</th>
+        <th>Date du spectacle</th>
+        <th>Heure du spectacle</th>
+    </tr>
+
+
     <?php
     foreach ($shows as $show) {
-          echo "<li>" . $show['title']. " par " . $show['performer']. ", le " .  $show['niceDate']. " à " . $show['niceStartTime'] . ".</li>";
-    } 
+        echo "<tr>" .
+        "<td>" . $show['title']. "</td>
+        <td>" . $show['performer']. "</td>
+        <td>" . $show['type']. "</td>
+        <td>" . $show['niceDate']. "</td>
+        <td>" . $show['niceStartTime']. "</td>";
+    }
     ?>
-</ul>
+
+</table>
 
 
 <!-- ------------EXERCICE 7------------ -->
